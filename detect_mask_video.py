@@ -1,11 +1,9 @@
-# USAGE
 # python detect_mask_video.py
-
-# import the necessary packages
 from tensorflow.keras.applications.resnet_v2 import preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 from imutils.video import VideoStream
+from screeninfo import get_monitors
 import numpy as np
 import argparse
 import imutils
@@ -52,22 +50,24 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
             # extract the face ROI, convert it from BGR to RGB channel
             # ordering, resize it to 224x224, and preprocess it
             face = frame[startY:endY, startX:endX]
-            face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
-            face = cv2.resize(face, (224, 224))
-            face = img_to_array(face)
-            face = preprocess_input(face)
-            face = np.expand_dims(face, axis=0)
+            if face.any():
+                face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
+                face = cv2.resize(face, (224, 224))
+                face = img_to_array(face)
+                face = preprocess_input(face)
+                face = np.expand_dims(face, axis=0)
 
-            # add the face and bounding boxes to their respective
-            # lists
-            faces.append(face)
-            locs.append((startX, startY, endX, endY))
+                # add the face and bounding boxes to their respective
+                # lists
+                faces.append(face)
+                locs.append((startX, startY, endX, endY))
 
     # only make a predictions if at least one face was detected
     if len(faces) > 0:
         # for faster inference we'll make batch predictions on *all*
         # faces at the same time rather than one-by-one predictions
         # in the above `for` loop
+        face = np.array(faces, dtype="float32")
         preds = maskNet.predict(faces)
 
     # return a 2-tuple of the face locations and their corresponding
@@ -78,7 +78,7 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-f", "--face", type=str, default="face_detector", help="path to face detector model directory")
-ap.add_argument("-m", "--model", type=str, default="mask_detector_resnet50v2.model",
+ap.add_argument("-m", "--model", type=str, default="model/mask_detector_resnet50v2.model",
                 help="path to trained face mask detector model")
 ap.add_argument("-c", "--confidence", type=float, default=0.5, help="minimum probability to filter weak detections")
 args = vars(ap.parse_args())
@@ -94,10 +94,8 @@ print("[INFO] loading face mask detector model...")
 maskNet = load_model(args["model"])
 
 # initialize the video stream and allow the camera sensor to warm up
-# vs = cv2.VideoCapture(1)
-# vs.open('USB\VID_05E3&PID_0510&MI_00\6&C89EF86&0&0000')
 print("[INFO] starting video stream...")
-vs = VideoStream(src=0).start()
+vs = VideoStream(src=1).start()
 time.sleep(2.0)
 
 # loop over the frames from the video stream
@@ -109,7 +107,10 @@ while True:
 
     # detect faces in the frame and determine if they are wearing a
     # face mask or not
-    (locs, preds) = detect_and_predict_mask(frame, faceNet, maskNet)
+    try:
+        (locs, preds) = detect_and_predict_mask(frame, faceNet, maskNet)
+    except:
+        continue
 
     # loop over the detected face locations and their corresponding
     # locations
@@ -132,27 +133,23 @@ while True:
         cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
 
     # show the output frame
-    ##
     # define the screen resulation
-    # screen_res = 1920, 1080
-    # scale_width = screen_res[0] / frame.shape[1]
-    # scale_height = screen_res[1] / frame.shape[0]
-    # scale = min(scale_width, scale_height)
-    #
-    # # resized window width and height
-    # window_width = int(frame.shape[1] * scale)
-    # window_height = int(frame.shape[0] * scale)
-    #
-    # # cv2.WINDOW_NORMAL makes the output window resizealbe
-    # cv2.namedWindow('Resized Window', cv2.WINDOW_NORMAL)
-    #
-    # # resize the window according to the screen resolution
-    # cv2.resizeWindow('Resized Window', window_width, window_height)
-    #
-    # cv2.imshow('Resized Window', frame)
-    ##
-    cv2.imshow("Frame", cv2.resize(frame, (1600, 800)))
-    # cv2.resizeWindow("Frame",1200,1000)
+    screen_res =  [[i.width, i.height] for i in get_monitors() if i.is_primary==True][0]
+    scale_width = screen_res[0] / frame.shape[1]
+    scale_height = screen_res[1] / frame.shape[0]
+    scale = min(scale_width, scale_height)
+    
+    # resized window width and height
+    window_width = int(frame.shape[1] * scale)
+    window_height = int(frame.shape[0] * scale)
+    
+    # cv2.WINDOW_NORMAL makes the output window resizealbe
+    cv2.namedWindow('Resized Window', cv2.WINDOW_NORMAL)
+    
+    # resize the window according to the screen resolution
+    cv2.resizeWindow('Resized Window', window_width, window_height)
+    cv2.imshow('Resized Window', frame)
+
     key = cv2.waitKey(1) & 0xFF
 
     # if the `q` key was pressed, break from the loop

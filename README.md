@@ -1,9 +1,9 @@
 # FaceMaskDetector
 The main purpose is to use a deep learning model to detect face mask, and We referenced the mask detector from this [repo](https://github.com/chandrikadeb7/Face-Mask-Detection) to make our own version.
 
-Unlike the original mask recognition alone, we use personal items such as palms, mobile phones, and papers to add to the training data set to avoid someone trying to deceive the machine with similar items.
+Unlike the original version, we use personal items such as palms, mobile phones, and papers to add to the training dataset to avoid someone trying to deceive the machine with similar items.
 
-At the same time, we also tried to use several common image classification models for evaluation, and finally chose ResNet50v2 as the final model, and got 96.6% accuracy in our results.
+At the same time, we also tried to use several classical image classification models for evaluation, and finally we chose ResNet50v2 as the final model, and got 96.6% accuracy in our results.
 
 [TOC]
 
@@ -19,6 +19,9 @@ Dependencies
 * argparse==1.1
 * scipy==1.4.1
 
+Results
+---
+
 Evaluation
 ---
 ![](https://i.imgur.com/DvNv3mg.png)
@@ -31,6 +34,6 @@ Reference
 TODO
 ---
 - [x] Open the repo
-- [ ] Upload main code
+- [x] Upload main code
 - [ ] Complete MarkDown file
 - [ ] Prove and refine the code

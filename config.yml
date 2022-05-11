@@ -1,0 +1,7 @@
+Data:
+  train_split_ratio: 0.8
+
+Test:
+  confidence: auto
+  face_model_dir: face_detector
+  mask_model: model/mask_detector_resnet50v2.model

@@ -2,8 +2,10 @@ import numpy as np
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import load_model
 import pandas as pd
+
+
 test_datagen = ImageDataGenerator(rescale=1./255)
-test_dir = "E:/Google 雲端硬碟/Python/untitled/ai/Final_project/Face-Mask-Detection-master/datasets/test"
+test_dir = "datasets/test"
 # load the face mask detector model from disk
 print("[INFO] loading face mask detector model...")
 model = load_model("mask_detector_vgg16.model")

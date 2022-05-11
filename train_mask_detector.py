@@ -2,18 +2,12 @@
 # python train_mask_detector.py --dataset dataset
 
 # import the necessary packages
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from tensorflow.keras.applications import VGG16
-from tensorflow.keras.layers import AveragePooling2D
-from tensorflow.keras.layers import Dropout
-from tensorflow.keras.layers import Flatten
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import Input
+from tensorflow.keras.layers import AveragePooling2D, Dropout, Flatten, Dense, Input
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.applications.vgg16 import preprocess_input
-from tensorflow.keras.preprocessing.image import img_to_array
-from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.utils import to_categorical
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split, StratifiedKFold
@@ -27,13 +21,13 @@ import os
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--dataset", type=str,
-	default="datasets/train",
+	default=os.path.join("datasets", "train"),
 	help="path to input dataset")
 ap.add_argument("-p", "--plot", type=str,
-	default="plot.png",
+	default=os.path.join("fig", "plot.png"),
 	help="path to output loss/accuracy plot")
 ap.add_argument("-m", "--model", type=str,
-	default="mask_detector_vgg16.model",
+	default=os.path.join("model", "mask_detector_vgg16.model"),
 	help="path to output face mask detector model")
 args = vars(ap.parse_args())
 
@@ -154,8 +148,8 @@ print("acc:%.2f%% std:(+/- %.2f%%)" % (np.mean(cvscores), np.std(cvscores)))
 #predIdxs = np.argmax(predIdxs, axis=1)
 
 # show a nicely formatted classification report
-#print(classification_report(testY.argmax(axis=1), predIdxs,
-#	target_names=lb.classes_))
+# print(classification_report(testY.argmax(axis=1), predIdxs,
+# 	target_names=lb.classes_))
 
 # serialize the model to disk
 print("[INFO] saving mask detector model...")

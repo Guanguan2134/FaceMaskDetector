@@ -21,7 +21,11 @@ pip install -r requirements.txt
 
 Demo
 ---
+### Before data argumentation
+<img src="https://github.com/Guanguan2134/FaceMaskDetector/blob/main/fig/Before%20aug.gif" width="200"/>
 
+### After data argumentation
+<img src="https://github.com/Guanguan2134/FaceMaskDetector/blob/main/fig/After%20aug.gif" width="200" />
 
 Quick start
 ---
@@ -90,8 +94,10 @@ Evaluation
 ![](https://i.imgur.com/DvNv3mg.png)
 
 * The Training history and Testing confusion metrix of ResNet50V2
-![](https://i.imgur.com/b1zNBzP.png)
-![](https://i.imgur.com/k6v9O4d.png)
+
+<figure class="half">
+    <img src="https://i.imgur.com/b1zNBzP.png" width=500><img src="https://i.imgur.com/k6v9O4d.png" width=500>
+</figure>
 
 
 

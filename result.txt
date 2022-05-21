@@ -1,0 +1,18 @@
+VGG16
+    val: accuracy: 97.79%, best_acc: 98.39%, std:(+/- 0.38%)
+    test: accuracy: 98.70%, loss: 0.0370
+MobileNetV2
+    val: accuracy: 92.00%, best_acc: 93.76%, std:(+/- 0.98%)
+    test: accuracy: 91.10%, loss: 0.2260
+MobileNetV3
+    val: accuracy: 99.26%, best_acc: 99.68%, std:(+/- 0.46%)
+    test: accuracy: 99.35%, loss: 0.0260
+DenseNet121
+    val: accuracy: 87.29%, best_acc: 88.89%, std:(+/- 1.48%)
+    test: accuracy: 84.44%, loss: 0.3542
+InceptionV3
+    val: accuracy: 82.27%, best_acc: 83.92%, std:(+/- 1.13%)
+    test: accuracy: 84.44%, loss: 0.3526
+ResNet50V2
+    val: accuracy: 99.22%, best_acc: 100.00%, std:(+/- 0.47%)
+    test: accuracy: 99.22%, test loss: 0.0214

@@ -36,7 +36,7 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
 
         # filter out weak detections by ensuring the confidence is
         # greater than the minimum confidence
-        if confidence > args["confidence"]:
+        if confidence > 0.5:
             # compute the (x, y)-coordinates of the bounding box for
             # the object
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
@@ -122,33 +122,34 @@ if __name__ == '__main__':
 
         # detect faces in the frame and determine if they are wearing a
         # face mask or not
-        try:
-            (locs, preds) = detect_and_predict_mask(frame, faceNet, maskNet)
+        # try:
+        (locs, preds) = detect_and_predict_mask(frame, faceNet, maskNet)
 
-            # loop over the detected face locations and their corresponding
-            # locations
-            for (box, pred) in zip(locs, preds):
-                # unpack the bounding box and predictions
-                (startX, startY, endX, endY) = box
-                (mask, withoutMask) = pred
+        # loop over the detected face locations and their corresponding
+        # locations
+        for (box, pred) in zip(locs, preds):
+            # unpack the bounding box and predictions
+            (startX, startY, endX, endY) = box
+            (mask, withoutMask) = pred
 
-                # determine the class label and color we'll use to draw
-                # the bounding box and text
-                if config['Test']['confidence'] == "auto" or config['Test']['confidence'] is None:
-                    label = "Mask" if mask > withoutMask else "No Mask"
-                else:
-                    label = "Mask" if mask > config['Test']['confidence'] else "No Mask"
-                color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
+            # determine the class label and color we'll use to draw
+            # the bounding box and text
+            if config['Test']['confidence'] == "auto" or config['Test']['confidence'] is None:
+                label = "Mask" if mask > withoutMask else "No Mask"
+            else:
+                label = "Mask" if mask > float(config['Test']['confidence']) else "No Mask"
+            color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
 
-                # include the probability in the label
-                label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
+            # include the probability in the label
+            label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
 
-                # display the label and bounding box rectangle on the output
-                # frame
-                cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-                cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-        except:
-            pass
+            # display the label and bounding box rectangle on the output
+            # frame
+            cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+            cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
+        # except Exception as e:
+        #     print(e)
+        #     pass
 
         # show the output frame
         # define the screen resulation

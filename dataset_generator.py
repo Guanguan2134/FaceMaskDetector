@@ -70,11 +70,3 @@ for i in trange(len(without_mask)):
     shutil.copyfile(src, dst)
 
 print('[INFO] Done.')
-
-
-
-
-
-
-
-

@@ -10,7 +10,7 @@ At the same time, we also tried to use several common image classification model
 * [FaceMaskDetector](#FaceMaskDetector)
 	* [Dependencies](#Dependencies)
 	* [Demo](#Demo)
-		* [Before / After data argumentation](#Before-/-After-data-argumentation)
+		* [Before / After data argumentation](#Before-//-After-data-argumentation)
 	* [Quick start](#Quick-start)
 		* [Stream mask detection](#Stream-mask-detection)
 		* [Training](#Training)

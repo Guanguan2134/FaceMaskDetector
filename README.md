@@ -10,8 +10,7 @@ At the same time, we also tried to use several common image classification model
 * [FaceMaskDetector](#FaceMaskDetector)
 	* [Dependencies](#Dependencies)
 	* [Demo](#Demo)
-		* [Before data argumentation](#Before-data-argumentation)
-		* [After data argumentation](#After-data-argumentation)
+		* [Before / After data argumentation](#Before-/-After-data-argumentation)
 	* [Quick start](#Quick-start)
 		* [Stream mask detection](#Stream-mask-detection)
 		* [Training](#Training)
@@ -32,11 +31,8 @@ pip install -r requirements.txt
 
 Demo
 ---
-### Before data argumentation
-<img src="https://github.com/Guanguan2134/FaceMaskDetector/blob/main/fig/Before%20aug.gif" width="200"/>
-
-### After data argumentation
-<img src="https://github.com/Guanguan2134/FaceMaskDetector/blob/main/fig/After%20aug.gif" width="200" />
+### Before / After data argumentation
+<img src="https://github.com/Guanguan2134/FaceMaskDetector/blob/main/fig/Before%20aug.gif" width="200"/>	<img src="https://github.com/Guanguan2134/FaceMaskDetector/blob/main/fig/After%20aug.gif" width="200" />
 
 Quick start
 ---

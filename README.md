@@ -5,7 +5,18 @@ Unlike the original mask recognition alone, we use personal items such as palms,
 
 At the same time, we also tried to use several common image classification models for evaluation, and finally chose ResNet50v2 as the final model, and got the accuracy of 99.3% in our results.
 
-[TOC]
+# Table of Content
+
+* [FaceMaskDetector](#FaceMaskDetector)
+	* [Dependencies](#Dependencies)
+	* [Demo](#Demo)
+		* [Before data argumentation](#Before-data-argumentation)
+		* [After data argumentation](#After-data-argumentation)
+	* [Quick start](#Quick-start)
+		* [Stream mask detection](#Stream-mask-detection)
+		* [Training](#Training)
+	* [Evaluation](#Evaluation)
+	* [Reference](#Reference)
 
 Dependencies
 ---

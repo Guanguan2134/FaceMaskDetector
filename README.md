@@ -106,11 +106,4 @@ Reference
 ---
 * [chandrikadeb7/Face-Mask-Detection](https://github.com/chandrikadeb7/Face-Mask-Detection)
 
-TODO
----
-- [x] Open the repo
-- [x] Upload main code
-- [ ] Complete MarkDown file
-- [x] Prove and refine the code
-
 ###### tags: `GitHub` `Python` `ML`
